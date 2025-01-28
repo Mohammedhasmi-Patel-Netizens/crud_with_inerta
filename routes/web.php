@@ -12,4 +12,5 @@ Route::get('add-product',function(){
 });
 
 Route::post('add-product',[ProductController::class,'addProduct']);
-// Route::get('add-product',[ProductController::class,'displayProducts']);
+Route::get('show-product',[ProductController::class,'showProducts']);
+Route::delete('/delete-product/{id}',[ProductController::class,'deleteProduct'])->name('product.delete');

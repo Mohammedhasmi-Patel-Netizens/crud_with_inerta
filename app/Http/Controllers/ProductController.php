@@ -5,7 +5,7 @@ namespace App\Http\Controllers;
 use App\Http\Requests\ProductRequest;
 use App\Models\Product;
 use App\Services\ProductService;
-
+use Illuminate\Http\Request;
 class ProductController extends Controller
 {
     protected $productService;
@@ -14,6 +14,8 @@ class ProductController extends Controller
     {
         $this->productService = $productService;
     }
+
+    // function for adding product.
     public function addProduct(ProductRequest $request)
     {
         $validatedData = $request->all();
@@ -22,9 +24,17 @@ class ProductController extends Controller
 
         // Return response
         if ($res) {
-            return redirect('/')->with(['success' => true, 'message' => 'Product Added successfully']);
+            return inertia('Home')->with(['success' => true, 'message' => 'Product Added successfully']);
         }
 
         return back()->withErrors(['error' => 'Product creation failed']);
+    }
+
+    public function showProducts(){
+        return $this->productService->displayAllProducts();
+    }
+
+    public function deleteProduct(Request $request,$id){
+        return $this->productService->deleteProduct($request,$id);
     }
 }

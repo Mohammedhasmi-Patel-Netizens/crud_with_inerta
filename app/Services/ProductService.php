@@ -3,6 +3,7 @@
 namespace App\Services;
 
 use App\Models\Product;
+use Illuminate\Http\Request;
 
 class ProductService
 {
@@ -25,5 +26,21 @@ class ProductService
             'price' => $validatedData['product_price'],
             'image_uri' => $imagePath,
         ]);
+    }
+
+    public function displayAllProducts(){
+        $products =  Product::all();
+
+        return inertia('ShowProducts',['products'=> $products]);
+    }
+
+    public function deleteProduct(Request $request,$id){
+
+        $product = Product::find($id);
+        // dd($product);
+        $product->delete();
+
+        return redirect('show-product');
+
     }
 }
