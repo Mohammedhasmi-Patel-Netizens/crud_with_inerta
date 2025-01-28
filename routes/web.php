@@ -17,4 +17,8 @@ Route::delete('/delete-product/{id}',[ProductController::class,'deleteProduct'])
 Route::get('/edit-product/{id}',[ProductController::class,'getProductById']);
 Route::post('/update-product/{id}',[ProductController::class,'updateProductById']);
 
+Route::get('register',function(){
+    return inertia('RegisterUser');
+});
+
 

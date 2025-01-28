@@ -12,8 +12,10 @@ const Home = ({ success,message }) => {
 
     return (
         <div>
-            <Link href="/add-product">Add Products</Link>
+            <Link href="/add-product" style={{marginRight:"50px"}}>Add Products</Link>
             <Link href="/show-product">Show Products</Link>
+            <Link href="/register">Show Products</Link>
+
 
             <ToastContainer />
         </div>
