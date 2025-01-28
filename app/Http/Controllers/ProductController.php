@@ -34,7 +34,16 @@ class ProductController extends Controller
         return $this->productService->displayAllProducts();
     }
 
-    public function deleteProduct(Request $request,$id){
-        return $this->productService->deleteProduct($request,$id);
+    public function deleteProduct($id){
+        return $this->productService->deleteProduct($id);
+    }
+
+    public function getProductById($id){
+          return $this->productService->getProductById($id);
+    }
+
+    public function updateProductById(ProductRequest $request, $id){
+
+        return $this->productService->updateProductById($request,$id);
     }
 }

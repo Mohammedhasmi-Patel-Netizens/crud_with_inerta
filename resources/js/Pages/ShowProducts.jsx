@@ -7,6 +7,7 @@ const ShowProducts = ({ products }) => {
     const handleEdit = (id) => {
         console.log("Edit product with ID:", id);
         // Logic to navigate to edit page, e.g., using Inertia's Link
+        router.get(`/edit-product/${id}`);
     };
 
     const handleDelete = (id)=>{

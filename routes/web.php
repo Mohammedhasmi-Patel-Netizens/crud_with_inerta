@@ -13,4 +13,8 @@ Route::get('add-product',function(){
 
 Route::post('add-product',[ProductController::class,'addProduct']);
 Route::get('show-product',[ProductController::class,'showProducts']);
-Route::delete('/delete-product/{id}',[ProductController::class,'deleteProduct'])->name('product.delete');
+Route::delete('/delete-product/{id}',[ProductController::class,'deleteProduct']);
+Route::get('/edit-product/{id}',[ProductController::class,'getProductById']);
+Route::post('/update-product/{id}',[ProductController::class,'updateProductById']);
+
+

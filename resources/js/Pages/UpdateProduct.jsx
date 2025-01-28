@@ -4,35 +4,51 @@ import { useForm } from "react-hook-form";
 import { router } from '@inertiajs/react';
 import { toast, ToastContainer } from "react-toastify";
 
-const UpdateProduct = () => {
+const UpdateProduct = ({ product }) => {
     const {
         register,
         handleSubmit,
         formState: { errors },
-    } = useForm();
+        setValue,
+        reset,
+    } = useForm({
+        defaultValues: {
+            product_name: product.name,
+            product_description: product.description,
+            product_price: product.price,
+            product_image: product.image_uri,
+        },
+    });
 
-    const onSubmit = (data) => {
+    const onSubmit = async (data) => {
         // Check if the file is selected
-        if (!data.product_image[0]) {  // Check if there's a file
+        if (!data.product_image || data.product_image.length === 0) {
             console.error("No file selected");
             return;
         }
-        
+
         const formData = new FormData();
         formData.append("product_name", data.product_name);
         formData.append("product_description", data.product_description);
         formData.append("product_price", Number(data.product_price));
         formData.append("product_image", data.product_image[0]); // Append the first file
 
-        router.post('/add-product', formData);
-        
+        try {
+           await router.post(`/update-product/${product.id}`, formData);
+                toast.success("Product updated successfully!");
+                reset(); // Reset the form if needed
+            
+        } catch (error) {
+            console.log(error)
+            toast.error("Failed to update product. Please try again.");
+            console.error("Error updating product:", error);
+        }
     };
 
-    
     return (
         <div>
             <form onSubmit={handleSubmit(onSubmit)} method="POST" encType="multipart/form-data">
-                <h2>Add Product</h2>
+                <h2>Update Product</h2>
                 <input
                     type="text"
                     placeholder="Product Name"
@@ -61,9 +77,9 @@ const UpdateProduct = () => {
                 {errors.product_image && (
                     <span className="error">This field is required</span>
                 )}
-                <input type="submit" value="Add Product" />
+                <input type="submit" value="Update Product" />
             </form>
-            <ToastContainer/>
+            <ToastContainer />
         </div>
     );
 };
