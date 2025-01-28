@@ -1,6 +1,7 @@
 import React from "react";
 import { useForm } from "react-hook-form";
 import "../../css/RegisterUser.css"
+import { router } from "@inertiajs/react";
 
 const RegisterUser = () => {
     const {
@@ -12,6 +13,8 @@ const RegisterUser = () => {
 
     const onSubmit = (data) => {
         console.log(data)
+        const res = router.post('/register',data);
+        console.log(res)
     };
 
     return (

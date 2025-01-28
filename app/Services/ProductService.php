@@ -90,6 +90,6 @@ class ProductService
         $product->image_uri = $image_path;
 
         $product->save();
-        return response()->json(['message' => 'Product updated successfully', 'product' => $product], 200);
+        return redirect('show-product');
     }
 }
