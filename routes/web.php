@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\ProductController;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
@@ -7,5 +8,7 @@ Route::get('/', function () {
 });
 
 Route::get('add-product',function(){
-    return inertia('');
+    return inertia('AddProduct');
 });
+
+Route::post('add-product',[ProductController::class,'addProduct']);
