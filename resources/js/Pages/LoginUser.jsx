@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import "../../css/LoginUser.css"
+import { router } from '@inertiajs/react';
 const LoginUser = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
@@ -13,7 +14,8 @@ const LoginUser = () => {
       return;
     }
 
-    setError('');
+    router.post('login',{email,password});
+
 
     
     setEmail('');
