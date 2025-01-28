@@ -12,3 +12,4 @@ Route::get('add-product',function(){
 });
 
 Route::post('add-product',[ProductController::class,'addProduct']);
+// Route::get('add-product',[ProductController::class,'displayProducts']);

@@ -2,8 +2,9 @@ import React from "react";
 import "../../css/AddProduct.css";
 import { useForm } from "react-hook-form";
 import { router } from '@inertiajs/react';
+import { toast, ToastContainer } from "react-toastify";
 
-const AddProduct = () => {
+const AddProduct = ({error}) => {
     const {
         register,
         handleSubmit,
@@ -24,9 +25,12 @@ const AddProduct = () => {
         formData.append("product_image", data.product_image[0]); // Append the first file
 
         router.post('/add-product', formData);
-
         
     };
+
+    if(error){
+        toast.error("error occured while adding product")
+    }
 
     return (
         <div>
@@ -62,6 +66,7 @@ const AddProduct = () => {
                 )}
                 <input type="submit" value="Add Product" />
             </form>
+            <ToastContainer/>
         </div>
     );
 };
