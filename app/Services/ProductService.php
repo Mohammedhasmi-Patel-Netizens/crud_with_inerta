@@ -5,6 +5,7 @@ namespace App\Services;
 use App\Http\Requests\ProductRequest;
 use App\Models\Product;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Storage;
 
 class ProductService
@@ -14,24 +15,34 @@ class ProductService
      */
     public function __construct() {}
 
-    public function createProduct(array $validatedData, $image): Product
+    public function createProduct(array $validatedData, $image)
     {
         $imagePath = $image->store('images', 'public');
 
         // Create a new product
-        return Product::create([
+        $res =  Product::create([
             'name' => $validatedData['product_name'],
             'description' => $validatedData['product_description'],
             'price' => $validatedData['product_price'],
             'image_uri' => $imagePath,
         ]);
+
+        // Return response
+        if ($res) {
+            return redirect('show-product');
+        }
     }
 
     public function displayAllProducts()
     {
         $products =  Product::all();
+        $user = Auth::user();
 
-        return inertia('ShowProducts', ['products' => $products]);
+        if ($user->role === 'admin') {
+            return inertia('ShowProducts', ['products' => $products]);
+        }
+
+        return inertia('Products', ['products'=> $products]);
     }
 
     public function deleteProduct($id)
@@ -41,18 +52,17 @@ class ProductService
         if ($product) {
             $imagePath = $product->image_uri;
 
-        if ($imagePath && Storage::disk('public')->exists($imagePath)) {
-            Storage::disk('public')->delete($imagePath);
+            if ($imagePath && Storage::disk('public')->exists($imagePath)) {
+                Storage::disk('public')->delete($imagePath);
+            }
+
+            $product->delete();
+
+            return redirect('/');
         }
-
-        $product->delete();
-
-        return redirect('/');
     }
 
-}
 
-    
 
     public function getProductById($id)
     {
@@ -89,7 +99,9 @@ class ProductService
         $product->price = $request->product_price;
         $product->image_uri = $image_path;
 
+        $products = Product::all();
+
         $product->save();
-        return redirect('show-product');
+        return inertia('ShowProducts', ['products' => $products]);
     }
 }

@@ -4,9 +4,11 @@ namespace App\Services;
 
 use App\Models\User;
 use App\Http\Requests\UserRequest;
+use App\Models\Product;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
+use Inertia\Inertia;
 
 class UserService
 {
@@ -67,11 +69,20 @@ class UserService
         }
     
         Auth::login($user);
+
+        $products = Product::all();
+        // dd($products);
+
+        if($user->role==='customer'){
+            return Inertia::render('Products',["products"=>$products]);
+
+            // return response()->json([
+            //     'success'=> true,
+            //     'message'=> 'logged in successfully.....'
+            // ]);
+        }else{
+           return redirect('show-product');
+        }
     
-         return response()->json([
-            'success' => true,
-            'message' => 'Login successful',
-            'user' => $user // Optionally return user data
-        ]);
     }
 }

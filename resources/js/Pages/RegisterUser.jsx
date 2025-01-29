@@ -1,7 +1,7 @@
 import React from "react";
 import { useForm } from "react-hook-form";
-import "../../css/RegisterUser.css"
-import { router } from "@inertiajs/react";
+import "../../css/RegisterUser.css";
+import { Link, router } from "@inertiajs/react";
 
 const RegisterUser = () => {
     const {
@@ -12,9 +12,9 @@ const RegisterUser = () => {
     } = useForm();
 
     const onSubmit = (data) => {
-        console.log(data)
-        const res = router.post('/register',data);
-        console.log(res)
+        console.log(data);
+        const res = router.post("/register", data);
+        console.log(res);
     };
 
     return (
@@ -44,7 +44,10 @@ const RegisterUser = () => {
                     placeholder="password"
                     {...register("password", {
                         required: "This field is required",
-                        minLength: { value: 6, message: "Password must be at least 6 characters" },
+                        minLength: {
+                            value: 6,
+                            message: "Password must be at least 6 characters",
+                        },
                     })}
                 />
                 {errors.password && (
@@ -56,15 +59,20 @@ const RegisterUser = () => {
                     placeholder="password_confirmation"
                     {...register("password_confirmation", {
                         required: "This field is required",
-                        validate: (value) => value === watch('password') || "Passwords do not match"
+                        validate: (value) =>
+                            value === watch("password") ||
+                            "Passwords do not match",
                     })}
                 />
                 {errors.password_confirmation && (
-                    <span className="error">{errors.password_confirmation.message}</span>
+                    <span className="error">
+                        {errors.password_confirmation.message}
+                    </span>
                 )}
 
                 <button type="submit">Register</button>
             </form>
+            <p> Already Have an Account? <Link href="login">Login</Link></p>
         </div>
     );
 };

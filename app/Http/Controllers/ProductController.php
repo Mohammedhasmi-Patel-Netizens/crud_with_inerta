@@ -6,6 +6,8 @@ use App\Http\Requests\ProductRequest;
 use App\Models\Product;
 use App\Services\ProductService;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
+
 class ProductController extends Controller
 {
     protected $productService;
@@ -15,22 +17,41 @@ class ProductController extends Controller
         $this->productService = $productService;
     }
 
+    // display product route or not 
+
+      public function displayAddProduct(){
+        $user = Auth::user();
+
+
+        if(!$user || $user->role!=='admin'){
+            abort(403);
+        }
+
+        return inertia('AddProduct');
+
+      }
+
     // function for adding product.
     public function addProduct(ProductRequest $request)
     {
-        $validatedData = $request->all();
-        $image = $request->file('product_image');
-        $res = $this->productService->createProduct($validatedData, $image);
-
-        // Return response
-        if ($res) {
-            return inertia('Home')->with(['success' => true, 'message' => 'Product Added successfully']);
+        $user = Auth::user();
+        if($user->role!=='admin'){
+            abort(403);
         }
 
-        return back()->withErrors(['error' => 'Product creation failed']);
+        $validatedData = $request->all();
+        $image = $request->file('product_image');
+        return $this->productService->createProduct($validatedData, $image);
+
+        
     }
 
     public function showProducts(){
+        $user = Auth::user();
+
+        if($user->role!=='admin'){
+            abort(403);
+        }
         return $this->productService->displayAllProducts();
     }
 
@@ -46,4 +67,11 @@ class ProductController extends Controller
 
         return $this->productService->updateProductById($request,$id);
     }
+
+    public function displayAllProducts(){
+        return $this->productService->displayAllProducts();
+
+    }
+
+    
 }

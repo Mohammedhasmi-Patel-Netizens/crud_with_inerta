@@ -61,6 +61,7 @@ const ShowProducts = ({ products }) => {
                     ))}
                 </tbody>
             </table>
+            <Link href="add-product">Add Product</Link>
         </div>
     );
 };

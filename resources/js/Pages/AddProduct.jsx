@@ -1,10 +1,10 @@
 import React from "react";
 import "../../css/AddProduct.css";
 import { useForm } from "react-hook-form";
-import { router } from '@inertiajs/react';
+import { Link, router } from "@inertiajs/react";
 import { toast, ToastContainer } from "react-toastify";
 
-const AddProduct = ({error}) => {
+const AddProduct = ({ error }) => {
     const {
         register,
         handleSubmit,
@@ -13,28 +13,32 @@ const AddProduct = ({error}) => {
 
     const onSubmit = (data) => {
         // Check if the file is selected
-        if (!data.product_image[0]) {  // Check if there's a file
+        if (!data.product_image[0]) {
+            // Check if there's a file
             console.error("No file selected");
             return;
         }
-        
+
         const formData = new FormData();
         formData.append("product_name", data.product_name);
         formData.append("product_description", data.product_description);
         formData.append("product_price", Number(data.product_price));
         formData.append("product_image", data.product_image[0]); // Append the first file
 
-        router.post('/add-product', formData);
-        
+        router.post("/add-product", formData);
     };
 
-    if(error){
-        toast.error("error occured while adding product")
+    if (error) {
+        toast.error("error occured while adding product");
     }
 
     return (
         <div>
-            <form onSubmit={handleSubmit(onSubmit)} method="POST" encType="multipart/form-data">
+            <form
+                onSubmit={handleSubmit(onSubmit)}
+                method="POST"
+                encType="multipart/form-data"
+            >
                 <h2>Add Product</h2>
                 <input
                     type="text"
@@ -60,13 +64,18 @@ const AddProduct = ({error}) => {
                 {errors.product_price && (
                     <span className="error">This field is required</span>
                 )}
-                <input {...register("product_image", { required: true })} type="file" />
+                <input
+                    {...register("product_image", { required: true })}
+                    type="file"
+                />
                 {errors.product_image && (
                     <span className="error">This field is required</span>
                 )}
                 <input type="submit" value="Add Product" />
             </form>
-            <ToastContainer/>
+
+            <Link style={{marginTop:"50px"}} href="show-product">Show Products</Link>
+            <ToastContainer />
         </div>
     );
 };
