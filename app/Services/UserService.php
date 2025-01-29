@@ -74,7 +74,7 @@ class UserService
         // dd($products);
 
         if($user->role==='customer'){
-            return Inertia::render('Products',["products"=>$products]);
+            return Inertia::render('Products',["products"=>$products,"user"=> $user]);
 
             // return response()->json([
             //     'success'=> true,
@@ -83,6 +83,41 @@ class UserService
         }else{
            return redirect('show-product');
         }
-    
+    }
+
+    public function logout(){
+        Auth::logout();
+        return inertia('LoginUser');
+    }
+
+    public function editUser($id){
+
+        $user = User::find($id);
+        
+        return inertia('UpdateUser', ['user'=> $user]);
+    }
+
+    public function updateUser($request,$id){
+        $user = User::find($id);
+
+        if(!$user){
+            return response()->json([
+                'success'=> false,
+                'message'=> 'invalid user'
+            ],404);
+        }
+
+        $user->name = $request->name;
+        $user->email = $request->email;
+        $user->password = Hash::make($request->password);
+        $success = $user->save();
+
+        if($success){
+            return response()->json([
+                'success'=> true,
+                'message'=> 'user updated successfully.......'
+            ],200);
+        }
+
     }
 }

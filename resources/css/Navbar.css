@@ -1,0 +1,41 @@
+/* Navbar.css */
+
+nav {
+  background-color: #f8f9fa;
+  padding: 15px; 
+  margin:0;
+}
+
+ul {
+  list-style-type: none; /* Remove bullet points */
+  display: flex; /* Use flexbox for horizontal layout */
+  gap: 15px; /* Space between items */
+  margin: 0; /* Remove default margin */
+  padding: 0; /* Remove default padding */
+}
+
+li {
+  display: inline; /* Inline display for list items */
+}
+
+.cart-logo {
+  width: 50px;  /* Set the width of the logo */
+  height: 50px; /* Set the height of the logo */
+  color: gray;    /* Set the text color to red */
+  cursor: pointer; /* Change the cursor to pointer on hover */
+}
+
+
+a {
+  text-decoration: none; /* Remove underline from links */
+  color: #007bff; /* Default link color */
+  transition: color 0.3s; /* Smooth transition for color change */
+}
+
+a:hover {
+  color: #0056b3; /* Darker color on hover */
+}
+
+a.logout {
+  color: red; /* Specific style for logout link */
+}

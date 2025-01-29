@@ -38,11 +38,15 @@ class ProductService
         $products =  Product::all();
         $user = Auth::user();
 
+        if(!$user){
+            return redirect('login');
+        }
+
         if ($user->role === 'admin') {
             return inertia('ShowProducts', ['products' => $products]);
         }
 
-        return inertia('Products', ['products'=> $products]);
+        return inertia('Products', ['products'=> $products,'user'=> $user]);
     }
 
     public function deleteProduct($id)

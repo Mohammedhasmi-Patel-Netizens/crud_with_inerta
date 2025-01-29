@@ -32,7 +32,7 @@ img {
   padding: 8px 12px;
   border: none;
   border-radius: 4px;
-  margin:15px;
+  margin:18px;
   cursor: pointer;
 }
 
@@ -52,4 +52,10 @@ img {
 
 .delete-button:hover {
   background-color: #d32f2f;
+}
+
+.bill-container{
+  margin-top:50px;
+  margin-left:550px;
+
 }

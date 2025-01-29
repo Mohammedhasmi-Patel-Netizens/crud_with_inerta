@@ -53,3 +53,9 @@
   color: #007BFF; /* Bootstrap primary color */
   font-weight: bold;
 }
+
+.cart-btn{
+  padding:5px;
+  margin:5px;
+  background-color: #007BFF;
+}

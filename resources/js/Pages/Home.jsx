@@ -2,6 +2,7 @@
 import { Link } from "@inertiajs/react";
 import React, { useEffect } from "react";
 import { ToastContainer, toast } from "react-toastify";
+import Navbar from "./Navbar";
 
 const Home = ({ success, message, user }) => {
     console.log(user);
@@ -30,14 +31,26 @@ const Home = ({ success, message, user }) => {
     );
 
     const renderShowAllProductsLink = () => (
-        <Link href="/products" style={{ marginRight: "50px" }}>
-            Show All Products
-        </Link>
+        <>
+            <Link href="/products" style={{ marginRight: "50px" }}>
+                Show All Products
+            </Link>
+        </>
     );
 
     return (
         <div>
-            <>{user ? <>{user?.role == "admin" ?  renderAdminLinks() : renderShowAllProductsLink()}</> : renderCustomerLinks()}</>
+            <>
+                {user ? (
+                    <>
+                        {user?.role == "admin"
+                            ? renderAdminLinks()
+                            : renderShowAllProductsLink()}
+                    </>
+                ) : (
+                    renderCustomerLinks()
+                )}
+            </>
 
             {/* {user ? (
                 user.role === "admin" ? (
