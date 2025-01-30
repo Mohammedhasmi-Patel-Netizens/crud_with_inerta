@@ -97,27 +97,38 @@ class UserService
         return inertia('UpdateUser', ['user'=> $user]);
     }
 
-    public function updateUser($request,$id){
-        $user = User::find($id);
+    public function updateUser (Request $request,$id)
+    {
+        $validatedData = $request->validate([
+            'username' => 'required|string|max:255',
+            'email' => 'required|email|max:255',
+            'password' => 'nullable|string|min:6|confirmed', // Make password nullable
+        ]);
 
-        if(!$user){
-            return response()->json([
-                'success'=> false,
-                'message'=> 'invalid user'
-            ],404);
+    
+        // Find the user by ID
+        $user = User::find($request->id);
+
+
+    
+        // Update the user's name and email
+        $user->name = $validatedData['username'];
+        $user->email = $validatedData['email'];
+    
+        if (!empty($validatedData['password']) && $validatedData['password'] !== '0') {
+            $user->password = Hash::make($validatedData['password']); // Hash the new password
         }
+    
+        $user->save();
 
-        $user->name = $request->name;
-        $user->email = $request->email;
-        $user->password = Hash::make($request->password);
-        $success = $user->save();
-
-        if($success){
-            return response()->json([
-                'success'=> true,
-                'message'=> 'user updated successfully.......'
-            ],200);
-        }
-
+        return inertia('UpdateUser', ['user'=> $user,'success'=>true]);
+    
     }
 }
+
+
+
+
+
+
+

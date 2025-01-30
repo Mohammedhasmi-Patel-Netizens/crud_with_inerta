@@ -11,7 +11,7 @@ const Products = ({ user, products }) => {
   };
 
   const handleUserProfile = (user)=>{
-    router.post(`/edit-user/${user.id}`);
+    router.get(`/edit-user/${user.id}`);
   }
 
   return (
