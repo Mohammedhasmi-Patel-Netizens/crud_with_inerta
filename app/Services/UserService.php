@@ -53,7 +53,6 @@ class UserService
         ]);
     
         $user = User::where('email', $request->email)->first();
-        dd($user);
     
         if (!$user) {
             return response()->json([
@@ -76,6 +75,8 @@ class UserService
 
         if($user->role==='customer'){
             return Inertia::render('Products',["products"=>$products,"user"=> $user]);
+
+
 
             // return response()->json([
             //     'success'=> true,

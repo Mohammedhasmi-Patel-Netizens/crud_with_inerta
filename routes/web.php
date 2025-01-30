@@ -29,8 +29,9 @@ Route::middleware('auth')->group(function(){
     Route::get('add-product',[ProductController::class,'displayAddProduct']);
     Route::get('show-product',[ProductController::class,'showProducts']);
     Route::get('/edit-product/{id}',[ProductController::class,'getProductById']);
+    Route::get('/edit-user/{id}',[UserController::class,'editUser']);
     Route::get('products',[ProductController::class,'displayAllProducts']);
-    Route::get('/edit-user/{id}',[UserController::class,'editUser']);   
+
 
    
 
