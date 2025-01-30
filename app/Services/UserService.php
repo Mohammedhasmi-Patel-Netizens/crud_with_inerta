@@ -34,7 +34,7 @@ class UserService
         if($user){
             Auth::login($user);
             return response()->json([
-                'status'=> 'success',
+                'success'=> true,
                 'message'=> 'user created successfully',
             ],200);
         }else{
@@ -53,6 +53,7 @@ class UserService
         ]);
     
         $user = User::where('email', $request->email)->first();
+        dd($user);
     
         if (!$user) {
             return response()->json([
@@ -68,7 +69,7 @@ class UserService
             ], 401);
         }
     
-        Auth::login($user);
+        // Auth::login($user);
 
         $products = Product::all();
         // dd($products);

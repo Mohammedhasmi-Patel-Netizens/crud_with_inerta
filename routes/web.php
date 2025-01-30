@@ -9,8 +9,6 @@ Route::get('/', function () {
     return inertia('Home'); // Ensure the path matches your component
 });
 
-Route::post('register',[UserController::class,'register']);
-Route::post('login',[UserController::class,'login']);
 
 
 Route::group(['middleware'=>'guest'],function(){
@@ -32,16 +30,17 @@ Route::middleware('auth')->group(function(){
     Route::get('show-product',[ProductController::class,'showProducts']);
     Route::get('/edit-product/{id}',[ProductController::class,'getProductById']);
     Route::get('products',[ProductController::class,'displayAllProducts']);
+    Route::get('/edit-user/{id}',[UserController::class,'editUser']);   
+
    
 
     Route::post('logout',[UserController::class,'logout']);
-    Route::post('/add-to-cart/{id}',[CartController::class,'addToCart']);
     Route::post('/get-cart-items/{id}',[CartController::class,'getCartItemBasedOnUserId']);
     Route::post('/update-product/{id}',[ProductController::class,'updateProductById']);
     Route::post('add-product',[ProductController::class,'addProduct']);
-    Route::get('/edit-user/{id}',[UserController::class,'editUser']);   // /update/user
     // Route::post('/update-user/{id}',[UserController::class,'updateUser']);
     Route::post('/update-user/{id}', [UserController::class, 'updateUser'])->name('update-user');
+
 
 
 

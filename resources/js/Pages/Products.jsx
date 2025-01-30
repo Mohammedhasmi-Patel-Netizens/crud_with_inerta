@@ -8,6 +8,7 @@ const Products = ({ user, products }) => {
 
   const handleUserCart = () => {
     router.post(`/get-cart-items/${user?.id}`);
+    
   };
 
   const handleUserProfile = (user)=>{

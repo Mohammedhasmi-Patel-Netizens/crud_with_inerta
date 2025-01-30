@@ -1,4 +1,3 @@
-import React, { useEffect } from 'react'
 import "../../css/ShowProduct.css"
 import TotalBill from './TotalBill';
 
@@ -6,7 +5,6 @@ const UserCartItem = ({ products }) => {
     let total_bill_price = 0;
 
     {
-
         products.forEach((item) => {
             total_bill_price += item.product.price * item.quantity;
         })
@@ -35,7 +33,7 @@ const UserCartItem = ({ products }) => {
                             <td>{item.product.price}</td>
                             <td>
                                 <img
-                                    src={`http://127.0.0.1:8000/storage/${item.product.image_uri}`}
+                                    src={`${common_image_uri}/${item.product.image_uri}`}
                                     alt={item.product.name}
                                 />
                             </td>
@@ -50,7 +48,6 @@ const UserCartItem = ({ products }) => {
             <div className="bill-container">
                 <TotalBill totalBill={total_bill_price} />
             </div>
-
 
         </div>
     )

@@ -1,12 +1,18 @@
 import React, { useState } from "react";
 import "../../css/LoginUser.css";
 import { router, Link } from "@inertiajs/react";
+import axios from "axios";
 const LoginUser = () => {
+
+    const baseURI = "http://localhost:8000/api";
+
+
+
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
     const [error, setError] = useState("");
 
-    const handleSubmit = (e) => {
+    const handleSubmit = async(e) => {
         e.preventDefault();
 
         if (!email || !password) {
@@ -14,10 +20,17 @@ const LoginUser = () => {
             return;
         }
 
-        router.post("login", { email, password });
+        try {
+            const res = await axios.post(`http://localhost:8000/api/login`,{
+                email,password
+            });
+            console.log(res)
+        } catch (error) {
+            console.log(error)
+        }
 
-        setEmail("");
-        setPassword("");
+
+      
     };
 
     return (

@@ -3,13 +3,31 @@ import "../../css/Product.css";
 import { router } from "@inertiajs/react";
 import { toast, ToastContainer } from "react-toastify";
 import { FaCartPlus } from "react-icons/fa";
+import axios from "axios";
 
 
 const Product = ({ product, user }) => {
+
+    const baseURI = "http://localhost:8000/api";
+
+
+
+
     const handleAddToCart = async () => {
-        const res = await router.post(`add-to-cart/${product.id}`, {
-            id: user.id,
-        });
+        // const res = await router.post(`add-to-cart/${product.id}`, {
+        //     id: user.id,
+        // });
+
+        try {
+            const res = await axios.post(`${baseURI}/add-to-cart/${user.id}`);
+            if(res?.data?.success){
+                toast.success("Product Added succesfully.....")
+            }
+
+        } catch (error) {
+            console.log(error)
+        }
+
     };
 
     
