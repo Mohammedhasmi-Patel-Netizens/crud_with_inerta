@@ -30,10 +30,6 @@ const Product = ({ product, user }) => {
 
     };
 
-    
-
-
-   
     return (
         <>
             <div className="product-card">
