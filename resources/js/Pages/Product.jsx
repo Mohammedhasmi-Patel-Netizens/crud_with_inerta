@@ -10,9 +10,6 @@ const Product = ({ product, user }) => {
 
     const baseURI = "http://localhost:8000/api";
 
-
-
-
     const handleAddToCart = async () => {
         // const res = await router.post(`add-to-cart/${product.id}`, {
         //     id: user.id,
